@@ -28,10 +28,14 @@ export const Task: React.FC<Props> = ({ tree }) => {
     showTaskContext({ task: tree, plugin }, { x: ev.pageX, y: ev.pageY });
   };
 
+  
   const onClickTask = async () => {
     try {
       await plugin.services.todoist.actions.closeTask(tree.id);
-    } catch (error: unknown) {
+      await plugin.logCompletedTask(tree);
+  
+    } 
+    catch (error: unknown) {
       console.error("Failed to close task", error);
       new Notice(t().query.failedCloseMessage, 2000);
     }

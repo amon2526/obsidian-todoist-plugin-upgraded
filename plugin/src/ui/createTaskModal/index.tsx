@@ -15,6 +15,7 @@ import { LabelSelector } from "./LabelSelector";
 import { PrioritySelector } from "./PrioritySelector";
 import { type ProjectIdentifier, ProjectSelector } from "./ProjectSelector";
 import { TaskContentInput } from "./TaskContentInput";
+import "../query/QueryRoot";
 import "./styles.scss";
 
 export type TaskCreationOptions = {
@@ -126,6 +127,7 @@ const CreateTaskModalContent: React.FC<CreateTaskProps> = ({
         buildWithLink(content, options.appendLinkToContent),
         params,
       );
+      await plugin.services.todoist.sync();
       new Notice(i18n.successNotice);
     } catch (err) {
       new Notice(i18n.errorNotice);
